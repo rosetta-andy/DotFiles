@@ -1,0 +1,140 @@
+# Default Programs
+	export EDITOR="vim"
+	export PAGER="less"
+	export BROWSER="dwd"
+	export MOVPLAY="vlc"
+	export PICVIEW="feh"
+	export SNDPLAY="mplayer"
+	export TERMINAL="uxterm"
+
+# File Extensions
+	for ext in html org php com net no;	do alias -s $ext=$BROWSER; done
+	for ext in txt tex py PKGBUID;		do alias -s $ext=$EDITOR; done
+	for ext in mpg wmv avi mkv mp4;		do alias -s $ext=$MOVPLAY; done
+	for ext in png jpg gif jpeg;		do alias -s $ext=$PICVIEW; done
+	for ext in wav pm3 ogg;			do alias -s $ext=$SNDPLAY; done
+	
+		##########################################
+		#                 ALIASES                #
+		##########################################
+
+
+## Color
+	alias ls='ls -h --color=auto'
+	alias grep='grep --color=auto'
+
+## Configurations
+	cfg-hosts() { $EDITOR /etc/hosts ;}
+	cfg-aliases() { $EDITOR ~/.DotFiles/.aliases ; rld-aliases ; echo "Reloading ~/.DotFiles/.aliases ..." ;}
+	cfg-zshrc() { $EDITOR ~/.DotFiles/.zshrc ; rld-zshrc ; echo "Reloading ~/.DotFiles/.zshrc ..." ;}
+	cfg-vimrc() { $EDITOR ~/.DotFiles/.vimrc ;}
+
+## Configurations Reload
+	rld-zshrc() { source ~/.DotFiles/.zshrc ;}
+	rld-aliases() { source ~/.DotFiles/.aliases ;}
+
+## System
+	alias shutdown='sudo shutdown -P now'
+	alias laptop-mode='grep -r '^\(CONTROL\|ENABLE\)_' /etc/laptop-mode/conf.d'
+
+## Games
+	alias mario='mupen64plus --windowed ~/ROMs/N64/SuperMario64.v64'
+	alias kart='mupen64plus --windowed ~/ROMs/N64/MarioKart64.v64'
+	alias zelda='mupen64plus --windowed ~/ROMs/N64/Zelda64.v64'
+	alias zeldamajora='mupen64plus --windowed ~/ROMs/N64/ZeldaMajorasMask.z64'
+
+## Packages
+	alias extract='dtrx'
+	alias gz='tar -zxvf'
+
+## Scripts
+	alias show_monut='cat ~/Scripts/mnt_m9090tw.sh'
+	alias state_hdaps='~/Scripts/hdaps_state.sh'
+	alias tpb-search='clear && figlet -c TPB Search $$ ~/Scripts/tpb.sh'
+	
+##Transmission
+	alias IP-update='~/Scripts/blocklist.sh'
+	alias tsm-check='dwb http://localhost:9091/transmission/web'
+	alias t='transmission-daemon && transmission-remote-cli'
+	alias kt='pkill transmission-daemon'
+
+## Multimedia
+	alias irc='weechat-curses'
+	alias M='mplayer-vo x11 -fs -zoom'
+	alias Vids='cd ~/Downloads/.blackbox && ranger'
+
+## Google Calenar
+	alias gcal-week='gcalcli --width 12 calw'
+	alias gcal='gcalcli --width 12 calm'
+	alias gcal-add='gcalcli quick'
+	alias gcal-agenda='gcalcli agenda'
+
+## Peer Guardian
+	alias pgl-update='pglcmd update'
+	alias pgl-start='pglcmd restart'
+	alias pgl-status='pglcmd status'
+	alias pgl-dump='pglcmd stats'
+	alias pgl-test='pglcmd test'
+	alias pgl-stop='pglcmd stop'
+
+## w3m
+	alias web='cd ~/Podcasts && w3m www.google.com.tw'
+
+## Check Screencast
+	alias FF-check-raw='mplayer ~/Screencast/screencast.avi'
+	alias FF-check-final='mplayer ~/Screencast/screencast.mp4'
+
+## Net
+	alias ww='wicd-curses'
+	alias hogs='sudo nethogs wlp3s0'
+	alias net-driftnet='echo "see pics from other compters on network" && sudo driftnet -i wlp3s0'
+
+		##########################################
+		#               FUNCTIONS                #
+		##########################################
+
+## Mount and umount iso files
+	function miso () { mkdir ~/ISO_CD && sudo mount -o loop "$@" ~/ISO_CD && cd ~/ISO_CD && ls ;} 
+	function uiso () { cd ~ && sudo umount ~/ISO_CD && rm -r ~/ISO_CD ;}
+		
+
+# Simple python HTTP server
+	server() { python3 -m http.server ;}
+		
+# Hacker top
+	hacker-top() { python ~/Scripts/hacker-top/hacker_top.py ;}
+		
+# Reddit top
+	reddit-top() { python ~/git/reddit-top/reddit_top ;}
+		
+# Transmission
+	T() { ~/Scripts/blocklist.sh && transmission-daemon && transmission-remote-cli ;}
+		
+# Pirate Bay search
+	tpb() { clear && figlet -c Pirate Bay && ~/Scripts/tpb.sh ;}
+		
+# Torrentz.eu search
+	torrentzeu() { clear && figlet -c Torrentz EU $$ ~/Scripts/torrentzeu.sh ;}
+		
+# YouTube Viewer
+	yt-viewer() { clear && figlet -c UouTube Viewer && youtube-viewer ;}
+		
+# No video / music only
+	yt-listen() { clear && figlet -c YouTube Listen && youtube-viewer -n $@ ;}
+		
+# Pianobar - ncurses Pandora Radio client
+	potify-cli() { clear && cd ~/Music && ffiglet -c Spotify CLI && pyhton3 ~/Scripts/pms/pms.py ;}
+		
+# Grooveshark CLI
+	groove-dl-cli() { cd grooveshark && clear && figlet -c Grooveshark && groove-dl ;}
+		
+## vim help page
+	:h() { vim +":h $1" +'wincmd o' +'nnoremap q :q!<CR>' ;}
+
+## Command-line calculator
+	calc() { python -ic "from __future__ import division; from math import *; from random import *" ;}
+		
+## Commandline Fu
+	cmdfu() { curl "http://www.commandlinefu.com/commands/matching/$(echo "$@" \
+			| sed 's/ /-/g')/$(echo -n $@ | base64)/plaintext" ;}
+		
